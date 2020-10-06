@@ -4,13 +4,13 @@ import pandas as pd
 import requests
 import streamlit as st
 import plotly.express as px
+import matplotlib.image as mpimg 
 
 api_url_mr = "https://e91pez1xi8.execute-api.ap-south-1.amazonaws.com/pnl?"
 payload = {}
 headers= {}
 response_mr = requests.request("GET", api_url_mr, headers=headers, data = payload)
 data = json.loads(response_mr.text)['data']
-
 
 #Dataframe for daily returns
 df = pd.DataFrame(data)
@@ -30,7 +30,7 @@ df1 = df.groupby(['month_year'],sort = False).sum()
 df1['% Returns'] = round(df1['pnl']*100/100000,2)
 df1 = df1.reset_index()
 
-fig_pnl = px.line(df, x='Date', y='cum_pnl',width = 1000,height = 600)
+fig_pnl = px.line(df, x='Date', y='cum_pnl',width = 800,height = 500)
 
 #Remove the None element
 if df.Date[0]:
@@ -51,25 +51,37 @@ for i in range(0,df.shape[0]):
         else:
             df['drawdown'].iloc[i] = df['pnl'].iloc[i] + df['drawdown'].iloc[i-1]
 
-fig_dd = px.line(df, x='Date', y='drawdown',width = 1000,height = 600)
+fig_dd = px.line(df, x='Date', y='drawdown',width = 800,height = 500)
 
 #Statistics
-win_ratio = round((df['pnl'] >= 0).sum()*100/len(df),2)
+total_days = len(df)
+winning_days = (df['pnl'] > 0).sum()
+losing_days = (df['pnl'] < 0).sum()
+null_days = (df['pnl'] == 0).sum()
+
+win_ratio = round((df['pnl'] > 0).sum()*100/len(df),2)
 max_profit = round(df['pnl'].max(),2)
 max_loss = round(df['pnl'].min(),2)
 max_drawdown = round(df['drawdown'].min(),2)
 avg_profit_on_win_days = df[df['pnl'] > 0]['pnl'].sum()/len(df[df['pnl'] > 0])
 avg_loss_on_loss_days = df[df['pnl'] < 0]['pnl'].sum()/len(df[df['pnl'] < 0])
+avg_profit_per_day = df['pnl'].sum()/len(df)
+expectancy = round((avg_profit_on_win_days*win_ratio + avg_loss_on_loss_days*(100 - win_ratio))*0.01,2)
 net_profit = round(df['cum_pnl'].iloc[-1],2)
 net_returns = round(net_roi,2)
 
-KPI = {'Win Ratio (%)':win_ratio, 'Max Profit':max_profit,'Max Loss':max_loss,'Max Drawdown':max_drawdown,'Average Profit on win days': avg_profit_on_win_days, 'Average Loss on loss days': avg_loss_on_loss_days, 'Net Profit':net_profit, 'Net Returns (%)': net_returns}
+KPI = {'Total days':total_days,'Winning days':winning_days,'Losing days':losing_days,'Null days(orders untriggered)':null_days,'Win Ratio (%)':win_ratio, 'Max Profit':max_profit,'Max Loss':max_loss,'Max Drawdown':max_drawdown,'Average Profit on win days': avg_profit_on_win_days, 'Average Loss on loss days': avg_loss_on_loss_days, 'Average Profit per day': avg_profit_per_day,'Expectancy': expectancy,'Net Profit':net_profit, 'Net Returns (%)': net_returns}
 strategy_stats = pd.DataFrame(KPI.values(),index = KPI.keys(),columns = [' '])
 
-#Content and charts on the webapp
-st.markdown("<h1 style='text-align: center; color: black;'>Forward Test of Mean Reversion Strategy</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: left; color: black;'>(Capital used is 1 lac with 1x margin)</h3>", unsafe_allow_html=True)
 
+#MarketScanner Logo
+img = mpimg.imread('ms_logo.png')
+st.image(img,width = 700)
+
+#Content and charts on the webapp
+st.markdown("<h1 style='text-align: center; color: black;'>Live Performance of Mean Reversion Strategy</h1>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: right; color: black;'>[Capital used is 1 lac with 1x margin]</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: right; color: black;'>[Start Date :- 26 Aug, 2020]</h4>", unsafe_allow_html=True)
 #Percentage ROI
 st.header('Net ROI: '+ str(net_roi) + '%')
 
