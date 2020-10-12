@@ -17,7 +17,7 @@ df = pd.DataFrame(data)
 df = df.rename(columns = {'_id':'Date'})
 #df = df.set_index('_id')
 df = df.iloc[::-1]
-df['pnl'] = round(df['pnl'],1)
+df['pnl'] = round(df['pnl']*3,1)
 df['cum_pnl'] = df['pnl'].cumsum()
 net_roi = round(df['cum_pnl'].iloc[-1]*100/100000,2)
 df['month'] = pd.DatetimeIndex(df['Date']).month 
@@ -80,7 +80,7 @@ st.image(img,width = 700)
 
 #Content and charts on the webapp
 st.markdown("<h1 style='text-align: center; color: black;'>Live Performance of Mean Reversion Strategy</h1>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: right; color: black;'>[Capital used is 1 lac with 1x margin]</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: right; color: black;'>[Capital used is 1 lac with 3x margin (we do not recommend to use more than 3x margin)]</h4>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: right; color: black;'>[Start Date :- 26 Aug, 2020]</h4>", unsafe_allow_html=True)
 #Percentage ROI
 st.header('Net ROI: '+ str(net_roi) + '%')
