@@ -100,8 +100,8 @@ st.header('Drawdown Curve')
 st.plotly_chart(fig_dd)
 
 #Date-wise PNL
-st.header('Date-wise PNL')
-st.table(df[['Date','pnl']].astype('object'))
+#st.header('Date-wise PNL')
+#st.table(df[['Date','pnl']].astype('object'))
 
 #Month-wise PNL
 st.header('Month-wise PNL')
