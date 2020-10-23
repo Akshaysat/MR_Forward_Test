@@ -81,8 +81,8 @@ st.image(img,width = 700)
 #Content and charts on the webapp
 st.markdown("<h1 style='text-align: center; color: black;'>Live Performance of Mean Reversion Strategy</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: right; color: black;'>[Capital used is 1 lac with 3x leverage (we do not recommend to use more than 3x margin)]</h4>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: right; color: black;'>[Start Date :- 26 Aug, 2020]</h4>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: right; color: black;'>[Daily Maximum Risk:- 9000]</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: right; color: black;'>[Start Date :- 26 Aug, 2020]</h4>", unsafe_allow_html=True)
 link = '[Check out our Telegram bot of Mean reversion Strategy](https://t.me/joinchat/LpYrJBjMTmc1iWotXu8XJA)'
 st.markdown(link, unsafe_allow_html=True)
 #Percentage ROI
@@ -100,12 +100,14 @@ st.plotly_chart(fig_pnl)
 st.header('Drawdown Curve')
 st.plotly_chart(fig_dd)
 
-#Date-wise PNL
-#st.header('Date-wise PNL')
-#st.table(df[['Date','pnl']].astype('object'))
-
 #Month-wise PNL
 st.header('Month-wise PNL')
 st.table(df1[['month_year','% Returns']])
+
+#Date-wise PNL
+st.header('Date-wise PNL (Last 30 days)')
+st.table(df[['Date','pnl']][-30:].astype('object'))
+
+
 
 
