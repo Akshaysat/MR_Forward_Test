@@ -66,7 +66,7 @@ max_drawdown = round(df['drawdown'].min(),2)
 avg_profit_on_win_days = df[df['pnl'] > 0]['pnl'].sum()/len(df[df['pnl'] > 0])
 avg_loss_on_loss_days = df[df['pnl'] < 0]['pnl'].sum()/len(df[df['pnl'] < 0])
 avg_profit_per_day = df['pnl'].sum()/len(df)
-expectancy = round(((avg_profit_on_win_days*win_ratio - avg_loss_on_loss_days*(100 - win_ratio))*0.01)/avg_loss_on_loss_days,4)
+expectancy = round(((avg_profit_on_win_days*win_ratio + avg_loss_on_loss_days*(100 - win_ratio))*0.01)/(-avg_loss_on_loss_days),4)
 net_profit = round(df['cum_pnl'].iloc[-1],2)
 net_returns = round(net_roi,2)
 
