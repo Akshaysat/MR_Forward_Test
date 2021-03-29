@@ -109,10 +109,10 @@ st.header('Date-wise PNL (Last 30 days)')
 st.table(df[['Date','pnl']][-30:].astype('object'))
 
 
-HtmlFile = open(“index.html”, ‘r’, encoding=‘utf-8’)
-source_code = HtmlFile.read()
-print(source_code)
-components.html(source_code, height=600)
+# HtmlFile = open(“index.html”, ‘r’, encoding=‘utf-8’)
+# source_code = HtmlFile.read()
+# print(source_code)
+# components.html(source_code, height=600)
 
-
-
+html_string = "<html><head><script data-ad-client="ca-pub-2802513441319923" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script></head></html>"
+st.markdown(html_string, unsafe_allow_html=True)
