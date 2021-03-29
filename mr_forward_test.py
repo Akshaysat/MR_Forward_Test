@@ -109,5 +109,10 @@ st.header('Date-wise PNL (Last 30 days)')
 st.table(df[['Date','pnl']][-30:].astype('object'))
 
 
+HtmlFile = open(“index.html”, ‘r’, encoding=‘utf-8’)
+source_code = HtmlFile.read()
+print(source_code)
+components.html(source_code, height=600)
+
 
 
