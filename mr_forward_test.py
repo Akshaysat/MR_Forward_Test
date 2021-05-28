@@ -84,7 +84,7 @@ st.markdown("<h4 style='text-align: right; color: black;'>[Capital used is 1 lac
 st.markdown("<h4 style='text-align: right; color: black;'>[Daily Maximum Risk:- 9000]</h4>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: right; color: black;'>[Start Date :- 26 Aug, 2020]</h4>", unsafe_allow_html=True)
 #link = '[Sign up for the Free Trial of this bot](https://forms.gle/sGAjc37RHK4VM7bq9)'
-st.markdown(link, unsafe_allow_html=True)
+#st.markdown(link, unsafe_allow_html=True)
 #Percentage ROI
 st.header('Net ROI: '+ str(net_roi) + '%')
 
