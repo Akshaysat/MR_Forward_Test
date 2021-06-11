@@ -6,6 +6,8 @@ import streamlit as st
 import plotly.express as px
 import matplotlib.image as mpimg 
 
+streamlit_analytics.start_tracking()
+
 api_url_mr = "https://e91pez1xi8.execute-api.ap-south-1.amazonaws.com/pnl?"
 payload = {}
 headers= {}
@@ -114,5 +116,4 @@ st.table(df[['Date','pnl']][-30:].astype('object'))
 # print(source_code)
 # components.html(source_code, height=600)
 
-html_string = "<html><head><script data-ad-client=\"ca-pub-2802513441319923\" async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script></head></html>"
-st.markdown(html_string, unsafe_allow_html=True)
+streamlit_analytics.stop_tracking()
