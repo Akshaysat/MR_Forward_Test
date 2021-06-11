@@ -5,6 +5,7 @@ import requests
 import streamlit as st
 import plotly.express as px
 import matplotlib.image as mpimg 
+import streamlit_analytics
 
 streamlit_analytics.start_tracking()
 
