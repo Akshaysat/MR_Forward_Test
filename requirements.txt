@@ -5,3 +5,5 @@ matplotlib==3.3.2
 plotly==4.11.0
 requests==2.24.0
 streamlit==0.67.1
+streamlit-analytics==0.2.2
+
