@@ -5,9 +5,7 @@ import requests
 import streamlit as st
 import plotly.express as px
 import matplotlib.image as mpimg 
-import streamlit_analytics
 
-streamlit_analytics.start_tracking()
 
 api_url_mr = "https://e91pez1xi8.execute-api.ap-south-1.amazonaws.com/pnl?"
 payload = {}
@@ -117,4 +115,3 @@ st.table(df[['Date','pnl']][-30:].astype('object'))
 # print(source_code)
 # components.html(source_code, height=600)
 
-streamlit_analytics.stop_tracking()
